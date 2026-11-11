@@ -22,12 +22,18 @@
 #include <asm/fpu/api.h>
 
 
-#define CHUNK_SIZE      (64 * 1024) //data package will be handled into 64KB chunks
-#define CHUNK_SECTORS   (CHUNK_SIZE / 512)      // 128 sectors per data chunk
-#define NUM_DISKS       3 //total number of brd devices 
-#define DATA_DISKS      2 //third one will hold parity calculation
-#define TILE_SIZE (16 * 1024)   // 16KB — optimal for P-core L1D (16*3)
-#define STRIPE_DATA_SECTORS (CHUNK_SECTORS * DATA_DISKS)  // 256 sectors = 128KB
+//data package will be handled into 64KB chunks
+#define CHUNK_SIZE (64 * 1024) 
+// 128 sectors per data chunk
+#define CHUNK_SECTORS (CHUNK_SIZE / 512)      
+//total number of brd devices
+#define NUM_DISKS 3 
+//third one will hold parity calculation
+#define DATA_DISKS 2 
+// 16KB — optimal for P-core L1D (16*3)
+#define TILE_SIZE (16 * 1024)   
+// 256 sectors = 128KB
+#define STRIPE_DATA_SECTORS (CHUNK_SECTORS * DATA_DISKS)  
 
 struct raid5_map { //temporary holding place for where everything will be written for each I/O request
     int      data_disk[DATA_DISKS];
